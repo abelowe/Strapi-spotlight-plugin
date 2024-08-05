@@ -7,12 +7,11 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import pluginId from '../../pluginId';
-
+import SpotlightSearchBar from '../../components/SpotlightSearchBar';
 const HomePage = () => {
   return (
     <div>
-      <h1>{pluginId}&apos;s HomePage</h1>
-      <p>Happy coding</p>
+      <SpotlightSearchBar /> 
     </div>
   );
 };

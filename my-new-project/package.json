@@ -11,6 +11,7 @@
     "deploy": "strapi deploy"
   },
   "dependencies": {
+    "@strapi/design-system": "^1.19.0",
     "@strapi/plugin-cloud": "4.25.1",
     "@strapi/plugin-i18n": "4.25.1",
     "@strapi/plugin-users-permissions": "4.25.1",
