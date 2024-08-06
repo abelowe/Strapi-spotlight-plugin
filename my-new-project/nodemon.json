@@ -1,0 +1,19 @@
+{
+    "watch": ["./"],
+    "ext": "js,json",
+    "ignore": [
+      "node_modules",
+      "build",
+      ".cache",
+      "public",
+      "admin",
+      "api",
+      "components",
+      "extensions",
+      "plugins",
+      "config",
+      "data",
+      "scripts",
+      "tmp"
+    ]
+  }

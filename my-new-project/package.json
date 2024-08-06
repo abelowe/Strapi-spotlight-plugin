@@ -3,13 +3,13 @@
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application",
-  "scripts": {
-    "develop": "strapi develop",
-    "start": "strapi start",
-    "build": "strapi build",
-    "strapi": "strapi",
-    "deploy": "strapi deploy"
-  },
+"scripts": {
+  "develop": "nodemon --config nodemon.json --exec \"strapi develop\"",
+  "start": "strapi start",
+  "build": "strapi build",
+  "strapi": "strapi",
+  "deploy": "strapi deploy"
+},
   "dependencies": {
     "@strapi/design-system": "^1.19.0",
     "@strapi/plugin-cloud": "4.25.1",
@@ -35,6 +35,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "ajv": "^8.17.1"
+    "ajv": "^8.17.1",
+    "nodemon": "^2.0.22"
   }
 }
