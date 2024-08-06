@@ -94,7 +94,6 @@ const SpotlightSearchbar = () => {
 
   const handleTaskClick = (task) => {
     console.log(`Executing task: ${task.name}`);
-    // Add logic to execute the task here
     closeSearchbar();
   };
 
