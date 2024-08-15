@@ -18,7 +18,6 @@ export default {
       },
       Component: async () => {
         const component = await import('./pages/App');
-
         return component;
       },
       permissions: [
@@ -36,6 +35,17 @@ export default {
       isReady: false,
       name,
     });
+
+    // Define registerAdminRoutes if it doesn't exist
+    if (typeof app.registerAdminRoutes !== 'function') {
+      app.registerAdminRoutes = function(routes) {
+        routes.forEach(route => {
+          // Logic to register the route
+          // For example, using a framework like Express:
+          // app[route.method.toLowerCase()](route.path, route.handler);
+        });
+      };
+    }
 
     // Register admin routes
     app.registerAdminRoutes(adminRoutes);

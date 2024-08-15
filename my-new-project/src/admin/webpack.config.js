@@ -1,32 +1,11 @@
-'use strict';
-
-
 module.exports = (config, webpack) => {
-
   config.module.rules.push(
-    {
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
-        },
-      },
-    },
     {
       test: /\.scss$/,
       use: [
-        'style-loader', 
-        'css-loader',   
-        'sass-loader',  
-      ],
-    },
-    {
-      test: /\.css$/,
-      use: [
-        'style-loader',
-        'css-loader',   
+        'style-loader', // Injects CSS into the DOM
+        'css-loader',   // Translates CSS into CommonJS
+        'sass-loader',  // Compiles Sass to CSS
       ],
     }
   );

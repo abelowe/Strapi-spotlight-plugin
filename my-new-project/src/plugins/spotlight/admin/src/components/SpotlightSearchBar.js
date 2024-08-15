@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useFetchClient } from '@strapi/helper-plugin';
 import { ModalLayout, ModalBody, ModalHeader, Button, Textarea } from '@strapi/design-system';
+import Shortcuts from 'shortcuts'; 
 import './Styles.scss';
 
 const SpotlightSearchbar = () => {
@@ -9,22 +10,43 @@ const SpotlightSearchbar = () => {
   const [tasks, setTasks] = useState([]);
   const { get } = useFetchClient();
 
+  // Initialize Shortcuts manager instance
+  const shortcuts = new Shortcuts({
+    capture: true, // Handle events during the capturing phase
+    target: document, // Listening for events on the document object
+    shouldHandleEvent: (event) => true, // Handle all possible events
+  });
+
+  // Handler to open the search bar
   const openSearchbar = () => setIsOpen(true);
   const closeSearchbar = () => setIsOpen(false);
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      if ((event.ctrlKey && event.altKey && event.key === 's') || (event.metaKey && event.altKey && event.key === 's')) {
-        openSearchbar();
-      }
-    };
+  // Define the shortcut handler
+  const onShortcut = () => {
+    openSearchbar();  
+    return true; // Prevent other handlers for the same shortcut from being called
+  };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+  // Register the shortcuts
+  useEffect(() => {
+    shortcuts.add([
+      {
+        shortcut: 'Ctrl+Alt+S',  // Define the shortcut you want
+        handler: onShortcut,
+      }
+    ]);
+
+    shortcuts.start();
+
+    // Clean up shortcuts on component unmount
+    return () => {
+      shortcuts.stop();
+      shortcuts.reset();
+    };
   }, []);
 
+  // Fetch tasks from Strapi API
   useEffect(() => {
-    // Fetch tasks from Strapi admin API
     const fetchTasks = async () => {
       try {
         const response = await get('/tasks');
