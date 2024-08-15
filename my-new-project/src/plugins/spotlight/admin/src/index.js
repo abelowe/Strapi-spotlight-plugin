@@ -3,6 +3,7 @@ import pluginPkg from '../../package.json';
 import pluginId from './pluginId';
 import Initializer from './components/Initializer';
 import PluginIcon from './components/PluginIcon';
+import adminRoutes from './routes/admin'; // Import the admin routes
 
 const name = pluginPkg.strapi.name;
 
@@ -28,12 +29,16 @@ export default {
         // },
       ],
     });
+
     app.registerPlugin({
       id: pluginId,
       initializer: Initializer,
       isReady: false,
       name,
     });
+
+    // Register admin routes
+    app.registerAdminRoutes(adminRoutes);
   },
 
   bootstrap(app) {},
