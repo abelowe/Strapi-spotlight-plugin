@@ -3,7 +3,7 @@ import pluginPkg from '../../package.json';
 import pluginId from './pluginId';
 import Initializer from './components/Initializer';
 import PluginIcon from './components/PluginIcon';
-import adminRoutes from './routes/admin'; // Import the admin routes
+import adminRoutes from '../../server/routes/index'; // Import the admin routes
 
 const name = pluginPkg.strapi.name;
 
