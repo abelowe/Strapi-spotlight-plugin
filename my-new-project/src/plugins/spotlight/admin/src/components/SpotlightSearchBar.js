@@ -1,68 +1,50 @@
 import React, { useState, useEffect } from 'react';
-import { useFetchClient } from '@strapi/helper-plugin';
-import { ModalLayout, ModalBody, ModalHeader, Button, Textarea } from '@strapi/design-system';
+import { ModalLayout, Button, Textarea } from '@strapi/design-system';
 import Shortcuts from 'shortcuts'; 
+import useQuickTasks from '../utils/quickTasks'; 
 import './Styles.scss';
 
 const SpotlightSearchbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [tasks, setTasks] = useState([]);
-  const { get } = useFetchClient();
+  const tasks = useQuickTasks(); 
 
-  // Initialize Shortcuts manager instance
   const shortcuts = new Shortcuts({
-    capture: true, // Handle events during the capturing phase
-    target: document, // Listening for events on the document object
-    shouldHandleEvent: (event) => true, // Handle all possible events
+    capture: true,
+    target: document,
+    shouldHandleEvent: (event) => true,
   });
 
-  // Handler to open the search bar
   const openSearchbar = () => setIsOpen(true);
   const closeSearchbar = () => setIsOpen(false);
 
-  // Define the shortcut handler
   const onShortcut = () => {
     openSearchbar();  
-    return true; // Prevent other handlers for the same shortcut from being called
-  };
+    return true;
+  };  
 
-  // Register the shortcuts
   useEffect(() => {
     shortcuts.add([
       {
-        shortcut: 'Ctrl+Alt+S',  // Define the shortcut you want
+        shortcut: 'Ctrl+Alt+S',
         handler: onShortcut,
       }
     ]);
 
     shortcuts.start();
 
-    // Clean up shortcuts on component unmount
     return () => {
       shortcuts.stop();
       shortcuts.reset();
     };
   }, []);
 
-  // Fetch tasks from Strapi API
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await get('/tasks');
-        setTasks(response.data);
-      } catch (error) {
-        console.error('Error fetching tasks:', error);
-      }
-    };
-
-    fetchTasks();
-  }, [get]);
-
-  const filteredTasks = tasks.filter(task => task.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  const filteredTasks = tasks.filter(task =>
+    task.attributes.task.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleTaskClick = (task) => {
-    console.log(`Executing task: ${task.name}`);
+    console.log(`Executing task: ${task.attributes.task}`);
     closeSearchbar();
   };
 
@@ -81,15 +63,20 @@ const SpotlightSearchbar = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
               <ul className="task-list">
-                {filteredTasks.map((task, index) => (
-                  <li key={index} className="task-item" onClick={() => handleTaskClick(task)}>
+                {filteredTasks.map((task) => (
+                  <li key={task.id} className="task-item" onClick={() => handleTaskClick(task)}>
                     <div className="task-name">
-                      {task.icon && <span className="task-icon">{task.icon}</span>}
-                      <span>{task.name}</span>
+                      <span>{task.attributes.task}</span>
                     </div>
                     <div className="task-shortcut">
-                      <span className="mac-shortcut">{task.shortcut}</span>
-                      {task.windowsShortcut && <span className="windows-shortcut">({task.windowsShortcut})</span>}
+                      <span className="mac-shortcut">
+                        {task.attributes.shortcut.split(' - ')[0]}
+                      </span>
+                      {task.attributes.shortcut.includes(' - ') && (
+                        <span className="windows-shortcut">
+                          ({task.attributes.shortcut.split(' - ')[1]})
+                        </span>
+                      )}
                     </div>
                   </li>
                 ))}
