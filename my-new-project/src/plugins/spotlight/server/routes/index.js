@@ -1,3 +1,4 @@
+
 module.exports = [
   {
     method: 'GET',
@@ -5,6 +6,16 @@ module.exports = [
     handler: 'myController.index',
     config: {
       policies: [],
+      auth: false,
+    },
+  },
+  {
+    method: 'GET',
+    path: '/tasks',
+    handler: 'task.find',
+    config: {
+      policies: [],
+      auth: false,
     },
   },
 ];

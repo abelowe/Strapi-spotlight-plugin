@@ -17,7 +17,7 @@
     "@strapi/plugin-i18n": "4.25.1",
     "@strapi/plugin-users-permissions": "4.25.1",
     "@strapi/strapi": "4.25.1",
-    "@tanstack/react-query": "^5.51.21",
+    "@tanstack/react-query": "^5.51.23",
     "ajv-draft-04": "^1.0.0",
     "axios": "^1.7.3",
     "better-sqlite3": "8.6.0",

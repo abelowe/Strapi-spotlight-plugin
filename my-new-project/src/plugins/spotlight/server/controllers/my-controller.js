@@ -1,10 +1,7 @@
 'use strict';
 
-module.exports = ({ strapi }) => ({
-  index(ctx) {
-    ctx.body = strapi
-      .plugin('spotlight')
-      .service('myService')
-      .getWelcomeMessage();
+module.exports = {
+  async index(ctx) {
+    ctx.send({ message: 'Hello from myController.index!' });
   },
-});
+};
