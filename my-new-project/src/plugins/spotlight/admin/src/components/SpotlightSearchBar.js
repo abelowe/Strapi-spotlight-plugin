@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { ModalLayout, Button, Textarea } from '@strapi/design-system';
 import Shortcuts from 'shortcuts'; 
 import './Styles.scss';
-// import useQuickTasks from '../utils/quickTasks'; // Import the useQuickTasks hook
+import useQuickTasks from '../utils/quickTasks';
 
 const SpotlightSearchbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  // const { tasks, isLoading, error } = useQuickTasks(); // Enable API call
+  const { tasks, isLoading, error } = useQuickTasks(); 
 
   const shortcuts = new Shortcuts({
     capture: true,
@@ -38,23 +38,23 @@ const SpotlightSearchbar = () => {
     };
   }, []);
 
-  // const filteredTasks = tasks?.filter(task =>
-  //   task.attributes.task.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
+  const filteredTasks = tasks?.filter(task =>
+    task.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  // const handleTaskClick = (task) => {
-  //   console.log(`Executing task: ${task.attributes.task}`);
-  //   closeSearchbar();
-  // };
+  const handleTaskClick = (task) => {
+    console.log(`Executing task: ${task.name}`);
+    closeSearchbar();
+  };
 
-  // if (isLoading) {
-  //   return <div>Loading tasks...</div>;
-  // }
+  if (isLoading) {
+    return <div>Loading tasks...</div>;
+  }
 
-  // if (error) {
-  //   console.error('Error fetching tasks:', error);
-  //   return <div>Error loading tasks. Check the console for details.</div>;
-  // }
+  if (error) {
+    console.error('Error fetching tasks:', error);
+    return <div>Error loading tasks. Check the console for details.</div>;
+  }
 
   return (
     <>
@@ -70,27 +70,25 @@ const SpotlightSearchbar = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              {/* Temporary content to display while `useQuickTasks` is disabled */}
-              <div>Quick tasks are currently disabled.</div>
-              {/* <ul className="task-list">
+              <ul className="task-list">
                 {filteredTasks?.map((task) => (
                   <li key={task.id} className="task-item" onClick={() => handleTaskClick(task)}>
                     <div className="task-name">
-                      <span>{task.attributes.task}</span>
+                      <span>{task.name}</span>
                     </div>
                     <div className="task-shortcut">
                       <span className="mac-shortcut">
-                        {task.attributes.shortcut.split(' - ')[0]}
+                        {task.shortcut?.split(' - ')[0]}
                       </span>
-                      {task.attributes.shortcut.includes(' - ') && (
+                      {task.shortcut?.includes(' - ') && (
                         <span className="windows-shortcut">
-                          ({task.attributes.shortcut.split(' - ')[1]})
+                          ({task.shortcut?.split(' - ')[1]})
                         </span>
                       )}
                     </div>
                   </li>
                 ))}
-              </ul> */}
+              </ul>
             </div>
           </ModalLayout>
         </div>
