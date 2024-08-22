@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { ModalLayout, Button, Textarea } from '@strapi/design-system';
-import Shortcuts from 'shortcuts'; 
-import './Styles.scss';
-import useQuickTasks from '../utils/quickTasks';
-import '@fortawesome/fontawesome-free/css/all.min.css'; 
+import React, { useState, useEffect } from "react";
+import { ModalLayout, Button, Textarea } from "@strapi/design-system";
+import Shortcuts from "shortcuts";
+import "./Styles.scss";
+import useQuickTasks from "../utils/quickTasks";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const SpotlightSearchbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const { tasks, isLoading, error } = useQuickTasks(); 
+  const [searchTerm, setSearchTerm] = useState("");
+  const { tasks, isLoading, error } = useQuickTasks();
 
   const shortcuts = new Shortcuts({
     capture: true,
@@ -19,16 +19,16 @@ const SpotlightSearchbar = () => {
   const openSearchbar = () => setIsOpen(true);
   const closeSearchbar = () => setIsOpen(false);
   const onShortcut = () => {
-    openSearchbar();  
+    openSearchbar();
     return true;
-  };  
+  };
 
   useEffect(() => {
     shortcuts.add([
       {
-        shortcut: 'Ctrl+Alt+S',
+        shortcut: "Ctrl+Alt+S",
         handler: onShortcut,
-      }
+      },
     ]);
 
     shortcuts.start();
@@ -39,7 +39,7 @@ const SpotlightSearchbar = () => {
     };
   }, []);
 
-  const filteredTasks = tasks?.filter(task =>
+  const filteredTasks = tasks?.filter((task) =>
     task.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -53,7 +53,7 @@ const SpotlightSearchbar = () => {
   }
 
   if (error) {
-    console.error('Error fetching tasks:', error);
+    console.error("Error fetching tasks:", error);
     return <div>Error loading tasks. Check the console for details.</div>;
   }
 
@@ -62,11 +62,15 @@ const SpotlightSearchbar = () => {
       <Button onClick={openSearchbar}>Open Spotlight Search</Button>
       {isOpen && (
         <div className="searchbar-container">
-          <ModalLayout className="searchbar-modal" onClose={closeSearchbar} labelledBy="spotlight-search-title">
+          <ModalLayout
+            className="searchbar-modal"
+            onClose={closeSearchbar}
+            labelledBy="spotlight-search-title"
+          >
             <div className="modal-header" id="spotlight-search-bar-div">
               <div className="search-input-container">
                 <Textarea
-                  className="search-input form-control" 
+                  className="search-input form-control"
                   placeholder="Search tasks..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
@@ -78,25 +82,32 @@ const SpotlightSearchbar = () => {
               </button>
             </div>
             <div className="modal-body">
-              <ul className="task-list">
-                {filteredTasks?.map((task) => (
-                  <li key={task.id} className="task-item" onClick={() => handleTaskClick(task)}>
-                    <div className="task-name">
-                      <span>{task.name}</span>
-                    </div>
-                    <div className="task-shortcut">
-                      <span className="mac-shortcut">
-                        {task.shortcut?.split(' - ')[0]}
-                      </span>
-                      {task.shortcut?.includes(' - ') && (
-                        <span className="windows-shortcut">
-                          ({task.shortcut?.split(' - ')[1]})
+              <div className="task-div">
+                <div className="quick-tasks-h1">Quick tasks</div>
+                <ul className="task-list">
+                  {filteredTasks?.map((task) => (
+                    <li
+                      key={task.id}
+                      className="task-item"
+                      onClick={() => handleTaskClick(task)}
+                    >
+                      <div className="task-name">
+                        <span>{task.name}</span>
+                      </div>
+                      <div className="task-shortcut">
+                        <span className="mac-shortcut">
+                          {task.shortcut?.split(" - ")[0]}
                         </span>
-                      )}
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                        {task.shortcut?.includes(" - ") && (
+                          <span className="windows-shortcut">
+                            ({task.shortcut?.split(" - ")[1]})
+                          </span>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </ModalLayout>
         </div>
