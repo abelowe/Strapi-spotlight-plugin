@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import pluginId from '../../pluginId';
 import HomePage from '../HomePage';
 import SpotlightSearchBar from '../../components/SpotlightSearchBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Create a client
 const queryClient = new QueryClient();

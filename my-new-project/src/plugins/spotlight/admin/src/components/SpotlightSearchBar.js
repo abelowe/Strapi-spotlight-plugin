@@ -3,6 +3,7 @@ import { ModalLayout, Button, Textarea } from '@strapi/design-system';
 import Shortcuts from 'shortcuts'; 
 import './Styles.scss';
 import useQuickTasks from '../utils/quickTasks';
+import '@fortawesome/fontawesome-free/css/all.min.css'; 
 
 const SpotlightSearchbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -62,14 +63,21 @@ const SpotlightSearchbar = () => {
       {isOpen && (
         <div className="searchbar-container">
           <ModalLayout className="searchbar-modal" onClose={closeSearchbar} labelledBy="spotlight-search-title">
-            <div className="modal-header" id="spotlight-search-title">Spotlight Search</div>
+            <div className="modal-header" id="spotlight-search-bar-div">
+              <div className="search-input-container">
+                <Textarea
+                  className="search-input form-control" 
+                  placeholder="Search tasks..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <i className="fas fa-search search-icon"></i>
+              </div>
+              <button className="close-button" onClick={closeSearchbar}>
+                <i className="fas fa-times"></i>
+              </button>
+            </div>
             <div className="modal-body">
-              <Textarea
-                className="search-input"
-                placeholder="Search tasks..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
               <ul className="task-list">
                 {filteredTasks?.map((task) => (
                   <li key={task.id} className="task-item" onClick={() => handleTaskClick(task)}>
