@@ -29,6 +29,10 @@ const SpotlightSearchbar = () => {
         shortcut: "Ctrl+Alt+S",
         handler: onShortcut,
       },
+      {
+        shortcut: "Cmd+Option+S",
+        handler: onShortcut,
+      },
     ]);
 
     shortcuts.start();
