@@ -1,6 +1,6 @@
 {
-  "name": "spotlight",
-  "version": "0.0.0",
+  "name": "@aoe0203/spotlight",
+  "version": "1.0.0",
   "description": "This is the description of the plugin.",
   "strapi": {
     "name": "spotlight",
@@ -29,16 +29,25 @@
     "styled-components": "^5.2.1"
   },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Alozie Ekentason",
+    "email": "alozie.ekentason@gmail.com"
   },
   "maintainers": [
     {
-      "name": "A Strapi developer"
+      "name": "Alozie Ekentason",
+      "email": "alozie.ekentason@gmail.com"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abelowe/Spotlight.git"
+  },
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
