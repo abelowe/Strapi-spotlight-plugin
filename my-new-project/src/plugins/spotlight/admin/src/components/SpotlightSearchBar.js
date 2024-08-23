@@ -95,18 +95,23 @@ const SpotlightSearchbar = () => {
                       className="task-item"
                       onClick={() => handleTaskClick(task)}
                     >
-                      <div className="task-name">
-                        <span>{task.name}</span>
-                      </div>
-                      <div className="task-shortcut">
-                        <span className="mac-shortcut">
-                          {task.shortcut?.split(" - ")[0]}
-                        </span>
-                        {task.shortcut?.includes(" - ") && (
-                          <span className="windows-shortcut">
-                            ({task.shortcut?.split(" - ")[1]})
-                          </span>
+                      <div className="task-icon">
+                        {task.icon && (
+                          <img src={task.icon.url} alt={task.icon.name} />
                         )}
+                      </div>
+                      <div className="task-content">
+                        <div className="task-name">{task.name}</div>
+                        <div className="task-shortcut">
+                          <span className="mac-shortcut">
+                            {task.shortcut?.split(" - ")[0]}
+                          </span>
+                          {task.shortcut?.includes(" - ") && (
+                            <span className="windows-shortcut">
+                              {task.shortcut?.split(" - ")[1]}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </li>
                   ))}

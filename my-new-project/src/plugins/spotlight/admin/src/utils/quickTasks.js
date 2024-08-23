@@ -7,11 +7,9 @@ const useQuickTasks = () => {
 
   const fetchTasks = async () => {
     try {
-      
-      const response = await get('/spotlight/tasks');
+      const response = await get('/spotlight/tasks?populate=icon');
       console.log('API Response:', response); 
 
-    
       if (response.data && Array.isArray(response.data)) {
         return response.data;
       } else {
@@ -19,7 +17,6 @@ const useQuickTasks = () => {
         return [];
       }
     } catch (error) {
-     
       throw error; 
     }
   };
@@ -36,7 +33,6 @@ const useQuickTasks = () => {
     }
   }
 
- 
   return { tasks: tasks || [], isLoading, error };
 };
 

@@ -18,6 +18,11 @@
     },
     "shortcut": {
       "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
     }
   }
 }

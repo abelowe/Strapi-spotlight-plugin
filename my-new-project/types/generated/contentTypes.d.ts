@@ -608,6 +608,7 @@ export interface PluginSpotlightTask extends Schema.CollectionType {
         maxLength: 200;
       }>;
     shortcut: Attribute.String;
+    icon: Attribute.Media<'images'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
