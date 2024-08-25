@@ -41,20 +41,20 @@ body {
   overflow-x: hidden; 
 }
 
-
+/* Hide scrollbar for WebKit-based browsers */
 .task-list::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
 
-
+/* Hide scrollbar for Firefox */
 .task-list {
-  scrollbar-width: none; 
+  scrollbar-width: none; /* Firefox */
 }
 
-
+/* Hide scrollbar for IE, Edge */
 .task-list {
-  -ms-overflow-style: none;
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
 .task-item {
@@ -67,8 +67,9 @@ body {
   &:hover {
     background-color: #181826;
   }
-  width: 100%; 
-  box-sizing: border-box; 
+  width: 100%; /* Ensure task items do not overflow horizontally */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
 
 .task-icon {
   margin-right: 10px;
@@ -193,4 +194,4 @@ body {
   align-items: center;
   padding-left: 10px;
   font-weight: bold;
-}}
+}
